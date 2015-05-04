@@ -50,6 +50,8 @@ namespace gambit
         A.block_absorb(pwd, 16, pwd_len);
         A.pad101_xor(16 + pwd_len, r-1);
         A.f();
+        A.zero(0, r);
+        A.f();
 
         unsigned int wrtp = 0;
         unsigned int rdp = 0;

@@ -27,7 +27,7 @@ namespace keccak
 
             void f(int rounds = 24);
 
-            void zero(int From, int Length);
+            void zero(int from_b, int length);
 
             /* access the state as a buffer. read/write limited to a single
                block, and must not go outside r. */
