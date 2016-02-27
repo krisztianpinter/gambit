@@ -159,7 +159,7 @@ namespace keccak
         ((uint8_t*)&A)[to_b] ^= 0x80;
     }
 
-    void keccak_state::pad_custom_01_xor(int from_b, int to_b, uint8_t bits, uint8_t bits_len)
+    void keccak_state::pad_custom_101_xor(int from_b, int to_b, uint8_t bits, uint8_t bits_len)
     {
         assert (bits_len <= 6);
         ((uint8_t*)&A)[from_b] ^= (bits & ((1 << bits_len) - 1)) | (1 << bits_len);

@@ -38,6 +38,7 @@ The exact definitions are:
                    const char* pwd, unsigned int pwd_len,
                    const uint64_t* ROM, unsigned int ROM_len,
                    unsigned int cost_t, unsigned int cost_m,
+                   unsigned int p,
                    seed### seed);
     void gambit###(const seed### seed, const dkid### dkid,
                    void *key, int key_len);
@@ -45,6 +46,7 @@ The exact definitions are:
                    const char* pwd, unsigned int pwd_len,
                    const uint64_t* ROM, unsigned int ROM_len,
                    unsigned int cost_t, unsigned int cost_m,
+                   unsigned int p,
                    const dkid### dkid, void *key, int key_len);
 
 The ### is the choosen security level, 128 or 256. The other parameters
@@ -61,3 +63,4 @@ Password Hashing Competition. The major changes are:
 * the PHS interface functions are removed.
 * an additional keccak-f round is added before the stretching. See the def.
 * the interface functions are renamed to indicate security, not capacity.
+* parallelization added

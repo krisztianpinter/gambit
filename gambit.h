@@ -27,11 +27,13 @@ namespace gambit
                    const char* pwd, unsigned int pwd_len,
                    const uint64_t* ROM, unsigned int ROM_len,
                    unsigned int cost_t, unsigned int cost_m,
+                   unsigned int p,
                    const dkid128 dkid, void *key, int key_len);
     void gambit128(const salt salt,
                    const char* pwd, unsigned int pwd_len,
                    const uint64_t* ROM, unsigned int ROM_len,
                    unsigned int cost_t, unsigned int cost_m,
+                   unsigned int p,
                    seed128 seed);
     void gambit128(const seed128 seed, const dkid128 dkid,
                    void *key, int key_len);
@@ -43,11 +45,13 @@ namespace gambit
                    const char* pwd, unsigned int pwd_len,
                    const uint64_t* ROM, unsigned int ROM_len,
                    unsigned int cost_t, unsigned int cost_m,
+                   unsigned int p,
                    const dkid256 dkid, void *key, int key_len);
     void gambit256(const salt salt,
                    const char* pwd, unsigned int pwd_len,
                    const uint64_t* ROM, unsigned int ROM_len,
                    unsigned int cost_t, unsigned int cost_m,
+                   unsigned int p,
                    seed256 seed);
     void gambit256(const seed256 seed, const dkid256 dkid,
                    void *key, int key_len);

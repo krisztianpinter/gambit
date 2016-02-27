@@ -38,7 +38,7 @@ namespace keccak
             void pad101_xor(int from_b, int to_b);
 
             // custom bbbbbb10*1 padding. b0..b5 will be used
-            void pad_custom_01_xor(int from_b, int to_b, uint8_t bits, uint8_t bits_len);
+            void pad_custom_101_xor(int from_b, int to_b, uint8_t bits, uint8_t bits_len);
 
             // direct access to state words
             uint64_t word_read(int idx);

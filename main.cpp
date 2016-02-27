@@ -27,10 +27,13 @@ void test128(salt &salt, const char *pwd, unsigned int pwd_len,
              unsigned int t, unsigned int m)
 {
     seed128 sd;
-    gambit128(salt, pwd, pwd_len, ROM, ROM_len, t, m, sd);
-    cout << "  sd128: ";
-    coutarray(sd, 32);
-    cout << endl;
+    for (unsigned int p = 1; p <= 4; p *= 2)
+    {
+        gambit128(salt, pwd, pwd_len, ROM, ROM_len, t, m, p, sd);
+        cout << "  sd128-" << p << ": ";
+        coutarray(sd, 32);
+        cout << endl;
+    }
 }
 
 void test256(salt &salt, const char *pwd, unsigned int pwd_len,
@@ -38,12 +41,15 @@ void test256(salt &salt, const char *pwd, unsigned int pwd_len,
              unsigned int t, unsigned int m)
 {
     seed256 sd;
-    gambit256(salt, pwd, pwd_len, ROM, ROM_len, t, m, sd);
-    cout << "  sd256: ";
-    coutarray(sd, 32);
-    cout << endl << "         ";
-    coutarray(sd+32, 32);
-    cout << endl;
+    for (unsigned int p = 1; p <= 4; p *= 2)
+    {
+        gambit256(salt, pwd, pwd_len, ROM, ROM_len, t, m, p, sd);
+        cout << "  sd256-" << p << ": ";
+        coutarray(sd, 32);
+        cout << endl << "           ";
+        coutarray(sd+32, 32);
+        cout << endl;
+    }
 }
 
 int main()
@@ -85,7 +91,7 @@ int main()
     memset(salt, 0, sizeof(salt));
 
     cout << endl << "SALT" << endl;
-    for (int i = 1; i <= 128; i*=2)
+    for (int i = 1; i <= 128; i *= 2)
     {
         memset(salt, 0, sizeof(salt));
         salt[15 - ((i-1) / 8)] = (1 << ((i-1) % 8));
@@ -128,14 +134,14 @@ int main()
     }
 
     cout << endl << "T/M" << endl;
-    for (t = 1; t < 40000; t = t*9/4)
+    for (t = 1; t < 10000; t = t*19/6)
     {
-        for (m = (t * 21 / 2 - 1) | 1; m > 0; m = (m==1)? 0 : (m / 3) | 1)
+        for (m = (t * 21 / 2 - 1) | 1; m > 0; m = (m==1)? 0 : (m / 4) | 1)
         {
             cout << std::dec << "t: " << t << " m: " << m << endl;
             test128(salt, pwd, pwd_len, ROM, ROM_len, t, m);
         }
-        for (m = (t * 17 / 2 - 1) | 1; m > 0; m = (m==1)? 0 : (m / 3) | 1)
+        for (m = (t * 17 / 2 - 1) | 1; m > 0; m = (m==1)? 0 : (m / 4) | 1)
         {
             cout << std::dec << "t: " << t << " m: " << m << endl;
             test256(salt, pwd, pwd_len, ROM, ROM_len, t, m);
@@ -152,8 +158,8 @@ int main()
         dkid128 dkid;
         uint8_t key[16];
 
-        gambit128(salt, pwd, pwd_len, ROM, ROM_len, t, m, sd);
-        for (int i = 1; i <= 1024; i*=2)
+        gambit128(salt, pwd, pwd_len, ROM, ROM_len, t, m, 1, sd);
+        for (int i = 1; i <= 1024; i *= 2)
         {
             memset(dkid, 0, sizeof(dkid));
             dkid[((i-1) / 8)] = (1 << ((i-1) % 8));
@@ -169,8 +175,8 @@ int main()
         dkid256 dkid;
         uint8_t key[16];
 
-        gambit256(salt, pwd, pwd_len, ROM, ROM_len, t, m, sd);
-        for (int i = 1; i <= 1024; i*=2)
+        gambit256(salt, pwd, pwd_len, ROM, ROM_len, t, m, 1, sd);
+        for (int i = 1; i <= 1024; i *= 2)
         {
             memset(dkid, 0, sizeof(dkid));
             dkid[((i-1) / 8)] = (1 << ((i-1) % 8));
